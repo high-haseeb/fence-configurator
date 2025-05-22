@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import { Environment, PresentationControls, useTexture } from "@react-three/drei";
-import { Canvas  } from "@react-three/fiber";
+import { Canvas, useFrame  } from "@react-three/fiber";
 import * as THREE from "three";
 
 export const Experience = () => {
@@ -23,7 +23,7 @@ export const Experience = () => {
                 <directionalLight
                     castShadow
                     position={[50, 50, 0]}
-                    intensity={1}
+                    intensity={3}
                     shadow-mapSize-width={1024}
                     shadow-mapSize-height={1024}
                     shadow-camera-left={-50}
@@ -152,8 +152,10 @@ const Ground = () => {
 
     return (
         <mesh rotation={[-Math.PI/2, 0, 0]} position={[0, -1, 0]} receiveShadow>
-            <planeGeometry args={[70, 70, 100, 100]}/>
-            <meshStandardMaterial {...map} />
+            <planeGeometry args={[100, 100, 1, 1]}/>
+            <meshStandardMaterial color="#efefef" roughness={0.5}/>
+            {/* <planeGeometry args={[70, 70, 100, 100]}/> */}
+            {/* <meshStandardMaterial {...map} /> */}
         </mesh>
     )
 }
@@ -169,6 +171,7 @@ const Fence: React.FC<FenceProps> = ({ width, height, sides }) => {
     const meshRef = useRef<THREE.InstancedMesh>(null);
     const totalPosts = 2 * (width + height) - 4;
     const activeSides = sides ?? 4;
+    const groupRef = useRef<THREE.Group>(null);
 
     useEffect(() => {
         const mesh = meshRef.current;
@@ -222,7 +225,7 @@ const Fence: React.FC<FenceProps> = ({ width, height, sides }) => {
     const barY = -1.9;
 
     return (
-        <group position={[-width / 2, 1.3, -height / 2]}>
+        <group position={[-width / 2, 1.3, -height / 2]} ref={groupRef}>
 
             <instancedMesh ref={meshRef} key={totalPosts} args={[undefined, undefined, totalPosts]} castShadow>
                 <boxGeometry />
@@ -260,6 +263,7 @@ const Fence: React.FC<FenceProps> = ({ width, height, sides }) => {
     );
 };
 
-useTexture.preload("/brown_mud/arm.png");
-useTexture.preload("/brown_mud/diff.png");
-useTexture.preload("/brown_mud/disp.png");
+// preload ground assets
+// useTexture.preload("/brown_mud/arm.png");
+// useTexture.preload("/brown_mud/diff.png");
+// useTexture.preload("/brown_mud/disp.png");

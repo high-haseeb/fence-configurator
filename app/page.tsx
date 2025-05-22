@@ -12,6 +12,6 @@ export default function HomePage() {
 
 const Branding = () => {
     return (
-        <Image src="/high-house-logo.png" width={100} height={100} alt="high-house-logo" className="absolute top-4 left-4"/>
+        <Image src="/high-house-logo.png" width={100} height={100} alt="high-house-logo" className="absolute top-4 left-4 invert"/>
     )
 }
