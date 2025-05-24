@@ -1,3 +1,5 @@
+// written by high-haseeb
+
 import { Experience } from "@/components/Scene";
 import Image from "next/image";
 
